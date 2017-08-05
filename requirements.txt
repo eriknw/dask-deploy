@@ -1,1 +1,2 @@
-dask[distributed]
+dask
+distributed

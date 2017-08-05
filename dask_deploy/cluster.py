@@ -24,8 +24,10 @@ class ClusterPlugin(SchedulerPlugin):
         if name in self.cluster.worker_handlers:
             self.cluster.worker_addrs[worker] = name
         elif self.strict:
-            logger.warning('Worker with unknown name: %r.  Closing.', name)
+            logger.warning('Worker (%s) has unknown name: %r.  Closing.', worker, name)
             yield self.scheduler.close_worker(worker=worker)
+        else:
+            logger.info('Worker (%s) has unknown name: %r.', worker, name)
 
     @gen.coroutine
     def remove_worker(self, scheduler, worker, **kwargs):
